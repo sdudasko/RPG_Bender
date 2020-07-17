@@ -21,8 +21,6 @@ namespace RPG.Control
             if (InteractWithCombat()) return; // If we succeed in combat - perform combat, if no, then do movement (Priority)
             if (InteractWithMovement()) return;
 
-
-            print("Nothing to do."); // Getting somewhere we cannot go, for instance - edge of a map
         }
 
         private bool InteractWithCombat()
