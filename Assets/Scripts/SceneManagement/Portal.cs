@@ -25,6 +25,12 @@ public class Portal : MonoBehaviour
 
     private IEnumerator Transition()
     {
+        if (sceneToLoad < 0)
+        {
+            Debug.LogError("Scene to load not set.");
+            yield break;
+        }
+
         DontDestroyOnLoad(gameObject);
         yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
@@ -49,6 +55,8 @@ public class Portal : MonoBehaviour
         {
             if (portal == this) { continue; }
 
+            if (portal.destination != this.destination) continue;
+ 
             return portal;
         }
 
