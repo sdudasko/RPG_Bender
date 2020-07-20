@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using RPG.Core;
 using UnityEngine;
 using UnityEngine.AI;
+using RPG.Saving;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour, IAction
+    public class Mover : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] Transform target;
         [SerializeField] float maxSpeed = 6f;
@@ -53,6 +54,20 @@ namespace RPG.Movement
 
             float speed = localVelocity.z;
             GetComponent<Animator>().SetFloat("forwardSpeed", speed);
+        }
+
+        object ISaveable.CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+
+        void ISaveable.RestoreState(object state)
+        {
+            SerializableVector3 position = (SerializableVector3)state;
+
+            GetComponent<NavMeshAgent>().enabled = false; // dont use position while we are trying to change it
+            transform.position = position.ToVector();
+            GetComponent<NavMeshAgent>().enabled = false;
         }
     }
 
