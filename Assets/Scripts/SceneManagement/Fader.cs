@@ -9,14 +9,6 @@ public class Fader : MonoBehaviour
     private void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-
-        StartCoroutine(FadeOutIn());
-    }
-
-    IEnumerator FadeOutIn()
-    {
-        yield return FadeOut(3f);
-        yield return FadeIn(1f);
     }
      
     public IEnumerator FadeOut(float time)
