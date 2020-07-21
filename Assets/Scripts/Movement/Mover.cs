@@ -15,6 +15,12 @@ namespace RPG.Movement
         NavMeshAgent navMeshAgent;
         Health health;
 
+        [System.Serializable]struct MoverSaveData
+        {
+            public SerializableVector3 position;
+            public SerializableVector3 rotation;
+        }
+
         private void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
@@ -58,16 +64,21 @@ namespace RPG.Movement
 
         object ISaveable.CaptureState()
         {
-            return new SerializableVector3(transform.position);
+            MoverSaveData data = new MoverSaveData();
+            data.position = new SerializableVector3(transform.position);
+            data.rotation = new SerializableVector3(transform.eulerAngles);
+
+            return data;
         }
 
         void ISaveable.RestoreState(object state)
         {
-            SerializableVector3 position = (SerializableVector3)state;
+            MoverSaveData data = (MoverSaveData) state;
 
-            GetComponent<NavMeshAgent>().enabled = false; // dont use position while we are trying to change it
-            transform.position = position.ToVector();
             GetComponent<NavMeshAgent>().enabled = false;
+            transform.position = data.position.ToVector();
+            transform.eulerAngles = data.rotation.ToVector();
+            GetComponent<NavMeshAgent>().enabled = true;
         }
     }
 
