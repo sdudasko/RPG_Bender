@@ -48,7 +48,7 @@ namespace RPG.Combat
 
             Animator animator = GetComponent<Animator>();
 
-            //if (weapon == null) return;
+            if (weapon == null) return;
 
             weapon.Spawn(rightHandTransform, leftHandTransform, animator);
         }
