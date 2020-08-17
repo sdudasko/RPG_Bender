@@ -9,12 +9,32 @@ public class Projectile : MonoBehaviour
     Health target = null;
     float damage = 0;
 
+    bool guidedMissile = false;
+    bool projectileFired = false;
+    Vector3 savedLocation;
+
     // Update is called once per frame
     void Update()
     {
         if (target == null) return;
 
-        transform.LookAt(GetAimLocation());
+        if (!projectileFired && !guidedMissile) {
+            savedLocation = GetAimLocation();
+            projectileFired = true;
+
+        } else if (guidedMissile) {
+            savedLocation = GetAimLocation();
+        }
+        
+        transform.LookAt(savedLocation);
+
+        print("Vector3.Distance(transform.position, savedLocation):" + Vector3.Distance(transform.position, savedLocation));
+
+        if (Vector3.Distance(transform.position, savedLocation) <= 1)
+        {
+            Destroy(gameObject);
+        }
+
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
