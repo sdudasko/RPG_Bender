@@ -9,12 +9,24 @@ public class Projectile : MonoBehaviour
     Health target = null;
     float damage = 0;
 
+    [SerializeField] bool isHoming = false;
+    bool projectileFired = false;
+
+    private void Start()
+    {
+        transform.LookAt(GetAimLocation());
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (target == null) return;
 
-        transform.LookAt(GetAimLocation());
+        if (isHoming && !(target.getIsDead()))
+        {
+            transform.LookAt(GetAimLocation());
+        }
+
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
@@ -36,6 +48,7 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Health>() != target) return;
+        if (target.getIsDead()) return;
 
         target.TakeDamage(damage);
 
