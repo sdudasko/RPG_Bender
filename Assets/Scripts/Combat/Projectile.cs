@@ -6,11 +6,13 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] float speed = 1;
-    Health target = null;
+    [SerializeField] bool isHoming = false;
+    [SerializeField] GameObject hitEffect = null;
+
+    bool projectileFired = false;
     float damage = 0;
 
-    [SerializeField] bool isHoming = false;
-    bool projectileFired = false;
+    Health target = null;
 
     private void Start()
     {
@@ -52,6 +54,7 @@ public class Projectile : MonoBehaviour
 
         target.TakeDamage(damage);
 
+        GameObject persistentObject = Instantiate(hitEffect, other.transform);
         Destroy(gameObject);
     }
 }
