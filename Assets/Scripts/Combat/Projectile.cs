@@ -9,30 +9,22 @@ public class Projectile : MonoBehaviour
     Health target = null;
     float damage = 0;
 
-    bool guidedMissile = false;
+    [SerializeField] bool isHoming = false;
     bool projectileFired = false;
-    Vector3 savedLocation;
+
+    private void Start()
+    {
+        transform.LookAt(GetAimLocation());
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (target == null) return;
 
-        if (!projectileFired && !guidedMissile) {
-            savedLocation = GetAimLocation();
-            projectileFired = true;
-
-        } else if (guidedMissile) {
-            savedLocation = GetAimLocation();
-        }
-        
-        transform.LookAt(savedLocation);
-
-        print("Vector3.Distance(transform.position, savedLocation):" + Vector3.Distance(transform.position, savedLocation));
-
-        if (Vector3.Distance(transform.position, savedLocation) <= 1)
+        if (isHoming && !(target.getIsDead()))
         {
-            Destroy(gameObject);
+            transform.LookAt(GetAimLocation());
         }
 
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
@@ -56,6 +48,7 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Health>() != target) return;
+        if (target.getIsDead()) return;
 
         target.TakeDamage(damage);
 
