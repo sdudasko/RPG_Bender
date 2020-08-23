@@ -59,7 +59,7 @@ namespace Boxophobic.Utils
 
         private static void SaveFile(string settingsPath)
         {
-            var file = AssetDatabase.LoadAssetAtPath<SettingsData>(settingsPath);
+                var file = AssetDatabase.LoadAssetAtPath<SettingsData>(settingsPath);
 
             EditorUtility.SetDirty(file);
             AssetDatabase.SaveAssets();
