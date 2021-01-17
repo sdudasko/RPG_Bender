@@ -143,9 +143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 1
-  handTransform: {fileID: 0}
-  defaultWeapon: {fileID: 0}
-  currentWeapon: {fileID: 0}
+  rightHandTransform: {fileID: 0}
+  leftHandTransform: {fileID: 0}
+  defaultWeapon: {fileID: 11400000, guid: b8d875da90e7141e8b7584b7da9c7f1e, type: 2}
 --- !u!114 &1956455394902205425
 MonoBehaviour:
   m_ObjectHideFlags: 0

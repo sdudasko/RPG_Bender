@@ -10,11 +10,8 @@ namespace RPG.Combat
     {
         [SerializeField] float timeBetweenAttacks = 1f;
 
-        [SerializeField] string defaultWeaponName = "Unarmed";
-
         [SerializeField] Transform rightHandTransform = null;
         [SerializeField] Transform leftHandTransform = null;
-
         [SerializeField] Weapon defaultWeapon = null;
 
         Health target;
@@ -23,7 +20,11 @@ namespace RPG.Combat
 
         private void Start()
         {
-            EquipWeapon(defaultWeapon);
+            if (currentWeapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+            }
+
         }
 
         private void Update()
@@ -135,17 +136,14 @@ namespace RPG.Combat
 
         public object CaptureState()
         {
-            if (!currentWeapon)
-            {
-                return defaultWeaponName;
-            }
             return currentWeapon.name;
         }
 
         public void RestoreState(object state)
         {
-            string defaultWeaponName = (string)state;
-            Weapon weapon = Resources.Load<Weapon>(defaultWeaponName);
+            print(state);
+            string weaponName = (string)state;
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
         }
     }
