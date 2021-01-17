@@ -135,6 +135,10 @@ namespace RPG.Combat
 
         public object CaptureState()
         {
+            if (!currentWeapon)
+            {
+                return defaultWeaponName;
+            }
             return currentWeapon.name;
         }
 

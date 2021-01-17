@@ -45,6 +45,7 @@ namespace Boxophobic.Utils
             if (File.Exists(settingsPath) == false)
             {
                 var directory = Path.GetDirectoryName(settingsPath);
+                System.Console.WriteLine(directory);
 
                 if (Directory.Exists(directory) == false)
                 {

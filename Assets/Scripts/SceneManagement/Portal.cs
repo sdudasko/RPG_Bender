@@ -37,9 +37,9 @@ public class Portal : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        Fader fader = FindObjectOfType<Fader>();
+        //Fader fader = FindObjectOfType<Fader>();
 
-        yield return fader.FadeOut(fadeOutTime);
+        //yield return fader.FadeOut(fadeOutTime);
 
         SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
         wrapper.Save();
@@ -54,7 +54,7 @@ public class Portal : MonoBehaviour
         wrapper.Save();
 
         yield return new WaitForSeconds(fadeWaitTime);
-        yield return fader.FadeIn(fadeInTime);
+        //yield return fader.FadeIn(fadeInTime);
 
         Destroy(gameObject);
     }

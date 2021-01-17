@@ -21,6 +21,8 @@ namespace RPG.SceneManagement
 
         void Update()
         {
+            GameObject gameSaveObject = GameObject.FindWithTag("GameSave");
+
             if (Input.GetKeyDown(KeyCode.L))
             {
                 Load();
